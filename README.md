@@ -75,15 +75,15 @@ Expected output:
 ```
 ============================================================
   Video: gymnast_50fps.mp4
-  Average PhyFPS: 50.0
+  Average PhyFPS: 50.5
 ============================================================
    Segment        Frames   Mid Frame    PhyFPS
   --------  ------------  ----------  --------
-         0      0-29             15      55.9
-         1      4-33             19      49.0
-         2      8-37             23      53.6
+         0      0-29             15      54.9
+         1      4-33             19      52.2
+         2      8-37             23      50.8
          ...
-       AVG                                50.0
+       AVG                                50.5
 ```
 
 ### Predict PhyFPS for a directory of videos
@@ -99,9 +99,9 @@ Three demo videos with known ground-truth FPS are included in `inference/demo_vi
 
 | Video | Ground Truth | Predicted PhyFPS | Error |
 |-------|-------------|-----------------|-------|
-| `gymnast_50fps.mp4` | 50 FPS | 50.0 FPS | 0.0% |
-| `gymnast_35fps.mp4` | 35 FPS | 35.0 FPS | 0.0% |
-| `gymnast_20fps.mp4` | 20 FPS | 20.0 FPS | 0.0% |
+| `gymnast_24fps.mp4` | 24 FPS | 24.2 FPS | 0.8% |
+| `gymnast_30fps.mp4` | 30 FPS | 30.3 FPS | 1.0% |
+| `gymnast_50fps.mp4` | 50 FPS | 50.5 FPS | 1.0% |
 
 ## PhyFPS-Bench-Gen
 
