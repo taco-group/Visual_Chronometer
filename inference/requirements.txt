@@ -1,0 +1,10 @@
+torch>=2.0.0
+pytorch_lightning>=1.9.0
+omegaconf>=2.3.0
+opencv-python>=4.8.0
+numpy>=1.22.0
+einops>=0.6.0
+xformers>=0.0.20
+huggingface_hub
+pillow
+python-dateutil

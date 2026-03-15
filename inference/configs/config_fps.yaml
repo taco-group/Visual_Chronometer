@@ -1,0 +1,93 @@
+model:
+  base_learning_rate: 1.0e-5
+  target: src.models.fps_predictor.FPSPredictor
+  params:
+    freeze_encoder: True # Set to False for full finetuning
+    hidden_dim: 1024
+    warmup_steps: 200
+    n_layers: 1
+    ckpt_path: ckpts/sota-4-4z.ckpt
+    monitor: "val/loss"
+    
+    # Encoder params (copied from config_4z.yaml)
+    embed_dim: 4
+    use_quant_conv: True
+    
+    lossconfig: # Dummy, just to satisfy init
+      target: torch.nn.Identity
+      
+    ddconfig:
+      double_z: True
+      z_channels: 4
+      resolution: 216
+      in_channels: 3
+      out_ch: 3
+      ch: 128
+      ch_mult: [ 1,2,4,4 ] 
+      temporal_down_factor: 1
+      num_res_blocks: 2
+      attn_resolutions: [ ]
+      dropout: 0.0
+    
+    ppconfig:
+      temporal_scale_factor: 4
+      z_channels: 4
+      out_ch: 4
+      ch: 4 # 16*4
+      attn_temporal_factor: []
+
+data:
+  target: data.lightning_data.DataModuleFromConfig
+  params:
+    batch_size: 1
+     # Adjust based on GPU memory
+    num_workers: 8
+    wrap: false
+    train:
+      target: data.dataset_fps.DatasetVideoFPSLoader
+      params:
+        csv_file: data/train.csv
+        resolution: [216, 216]
+        video_length: 30
+        subset_split: all
+        frame_stride: 1
+    validation:
+      target: data.dataset_fps.DatasetVideoFPSLoader
+      params:
+        csv_file: data/val.csv
+        resolution: [216, 216]
+        video_length: 30
+        subset_split: all
+        frame_stride: 1
+    test:
+      target: data.dataset_fps.DatasetVideoFPSLoader
+      params:
+        csv_file: data/val.csv
+        resolution: [216, 216]
+        video_length: 30
+        subset_split: all
+        frame_stride: 1
+
+lightning:
+  callbacks:
+    metrics_over_trainsteps_checkpoint:
+      target: pytorch_lightning.callbacks.ModelCheckpoint
+      params:
+        filename: '{epoch:06}-{step:09}'
+        save_weights_only: False
+        every_n_train_steps: 2000
+        monitor: "val/loss"
+        mode: "min"
+        save_top_k: 3
+
+  trainer:
+    benchmark: True
+    accumulate_grad_batches: 8
+    max_epochs: 100
+    accelerator: gpu
+    devices: 1
+    num_nodes: 1
+    val_check_interval: 2000
+    gradient_clip_val: 1.0
+    track_grad_norm: 2
+    num_sanity_val_steps: 0

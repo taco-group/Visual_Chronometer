@@ -1,0 +1,134 @@
+# Visual Chronometer: Measuring Physical Frame Rate from Visual Dynamics
+
+<p align="center">
+  <a href="#"><b>Paper</b></a> &nbsp;|&nbsp;
+  <a href="https://xiangbogaobarry.github.io/Visual_Chronometer"><b>Project Page</b></a> &nbsp;|&nbsp;
+  <a href="https://huggingface.co/xiangbog/Visual_Chronometer"><b>Model Weights</b></a> &nbsp;|&nbsp;
+  <a href="#phyfps-bench-gen"><b>PhyFPS-Bench-Gen</b></a>
+</p>
+
+> *"Not only do we measure the movement by the time, but also the time by the movement, because they define each other."* — Aristotle, *Physics*
+
+**Visual Chronometer** predicts the **Physical Frames Per Second (PhyFPS)** of a video — the true temporal scale implied by its visual motion, independent of container metadata. We reveal that state-of-the-art video generators suffer from severe *chronometric hallucination*: their outputs exhibit ambiguous, unstable, and uncontrollable physical motion speeds.
+
+<!-- Demo GIFs: Original (Meta FPS) vs. Corrected (PhyFPS) -->
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+**"A brown hen scratching the dirt and pecking at the ground to hunt for worms."**
+<br><sub>Original Meta FPS: 24 → PhyFPS: 35.8</sub>
+<br><img src="docs/static/videos/pair_01.gif" width="100%">
+</td>
+<td align="center" width="50%">
+
+**"A frog leaping to snap up an ant."**
+<br><sub>Original Meta FPS: 24 → PhyFPS: 60.2</sub>
+<br><img src="docs/static/videos/pair_02.gif" width="100%">
+</td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+
+**"A panning shot following a yellow taxi driving down the street."**
+<br><sub>Original Meta FPS: 16 → PhyFPS: 44.9</sub>
+<br><img src="docs/static/videos/pair_03.gif" width="100%">
+</td>
+</tr>
+</table>
+
+<sub>Left: Original generated video at container FPS. Right: Corrected to PhyFPS using Visual Chronometer. User studies confirm corrected videos are perceived as more natural.</sub>
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/taco-group/Visual_Chronometer.git
+cd Visual_Chronometer/inference
+pip install -r requirements.txt
+```
+
+## Model Weights
+
+The checkpoint is **automatically downloaded** from HuggingFace when you first run inference. No manual download is needed.
+
+Alternatively, you can download it manually:
+
+| Model | Range | Download |
+|-------|-------|----------|
+| VC-Common | 10–60 FPS | [vc_common_10_60fps.ckpt](https://huggingface.co/xiangbog/Visual_Chronometer) |
+
+Place the file in `inference/ckpts/`.
+
+## Quick Start
+
+### Predict PhyFPS for a single video
+
+```bash
+cd inference
+python predict.py --video_path demo_videos/gymnast_50fps.mp4
+```
+
+Expected output:
+```
+============================================================
+  Video: gymnast_50fps.mp4
+  Average PhyFPS: 50.0
+============================================================
+   Segment        Frames   Mid Frame    PhyFPS
+  --------  ------------  ----------  --------
+         0      0-29             15      55.9
+         1      4-33             19      49.0
+         2      8-37             23      53.6
+         ...
+       AVG                                50.0
+```
+
+### Predict PhyFPS for a directory of videos
+
+```bash
+cd inference
+python predict.py --video_dir path/to/videos/ --output_csv results.csv
+```
+
+### Demo videos
+
+Three demo videos with known ground-truth FPS are included in `inference/demo_videos/`:
+
+| Video | Ground Truth | Predicted PhyFPS | Error |
+|-------|-------------|-----------------|-------|
+| `gymnast_50fps.mp4` | 50 FPS | 50.0 FPS | 0.0% |
+| `gymnast_35fps.mp4` | 35 FPS | 35.0 FPS | 0.0% |
+| `gymnast_20fps.mp4` | 20 FPS | 20.0 FPS | 0.0% |
+
+## PhyFPS-Bench-Gen
+
+A benchmark of 100 prompts for auditing the temporal consistency of video generators. See [`PhyFPS-Bench-Gen/README.md`](PhyFPS-Bench-Gen/README.md) for usage.
+
+**Quick evaluation:**
+
+```bash
+# 1. Generate videos with your model
+your_model --prompts PhyFPS-Bench-Gen/prompts.txt --output generated/
+
+# 2. Predict PhyFPS
+cd inference
+python predict.py --video_dir ../generated/ --stride 4 --output_csv results.csv
+```
+
+
+## Citation
+
+```bibtex
+@article{gao2026visual_chronometer,
+  title={The Pulse of Motion: Measuring Physical Frame Rate from Visual Dynamics},
+  author={Gao, Xiangbo and Wu, Mingyang and Yang, Siyuan and Yu, Jiongze and Taghavi, Pardis and Lin, Fangzhou and Tu, Zhengzhong},
+  year={2026}
+}
+```
+
+## License
+
+<!-- This project is released under [CC-BY-NC-ND](LICENSE). -->
