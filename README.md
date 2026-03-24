@@ -1,7 +1,7 @@
 # The Pulse of Motion: Measuring Physical Frame Rate from Visual Dynamics
 
 <p align="center">
-  <a href="#"><b>Paper</b></a> &nbsp;|&nbsp;
+  <a href="https://arxiv.org/abs/2603.14375"><b>Paper</b></a> &nbsp;|&nbsp;
   <a href="https://xiangbogaobarry.github.io/Pulse-of-Motion"><b>Project Page</b></a> &nbsp;|&nbsp;
   <a href="https://www.pulse-of-motion-leaderboard.com/"><b>Leaderboard</b></a> &nbsp;|&nbsp;
   <a href="https://huggingface.co/xiangbog/Pulse-of-Motion"><b>Model Weights</b></a>
