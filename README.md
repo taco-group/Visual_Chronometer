@@ -137,7 +137,7 @@ python predict.py --video_dir ../generated/ --stride 4 --output_csv results.csv
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=taco-group/Visual_Chronometer&type=Date)](https://www.star-history.com/#taco-group/Pulse-of-Motion&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=taco-group/Pulse-of-Motion&type=Date)](https://www.star-history.com/#taco-group/Pulse-of-Motion&Date)
 
 ## License
 
