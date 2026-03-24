@@ -4,7 +4,7 @@
   <a href="#"><b>Paper</b></a> &nbsp;|&nbsp;
   <a href="https://xiangbogaobarry.github.io/Pulse-of-Motion"><b>Project Page</b></a> &nbsp;|&nbsp;
   <a href="https://www.pulse-of-motion-leaderboard.com/"><b>Leaderboard</b></a> &nbsp;|&nbsp;
-  <a href="https://huggingface.co/xiangbog/Pulse-of-Motion"><b>Model Weights</b></a> &nbsp;|&nbsp;
+  <a href="https://huggingface.co/xiangbog/Pulse-of-Motion"><b>Model Weights</b></a>
 </p>
 
 > *"Not only do we measure the movement by the time, but also the time by the movement, because they define each other."* — Aristotle, *Physics*
