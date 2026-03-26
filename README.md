@@ -12,10 +12,9 @@
 **Visual Chronometer** predicts the **Physical Frames Per Second (PhyFPS)** of a video — the true temporal scale implied by its visual motion, independent of container metadata. We reveal that state-of-the-art video generators suffer from severe *chronometric hallucination*: their outputs exhibit ambiguous, unstable, and uncontrollable physical motion speeds.
 
 <p class="leaderboard-promo" style="animation: fadeUp 0.7s ease 0.4s both;">
-            <span class="promo-highlight">The PoM Leaderboard is now live!</span> 
-            <br>
-            <a href="https://www.pulse-of-motion-leaderboard.com/" target="_blank" class="leaderboard-link">Join us and test if your generated videos align with the pulse of motion</a>.
-        </p>
+    <span class="promo-highlight">The PoM Leaderboard is now live!</span> 
+    <a href="https://www.pulse-of-motion-leaderboard.com/" target="_blank" class="leaderboard-link">Join us and test if your generated videos align with the pulse of motion</a>.
+</p>
 
 <!-- Demo GIFs: Original (Meta FPS) vs. Corrected (PhyFPS) -->
 
